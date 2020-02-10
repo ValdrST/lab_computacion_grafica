@@ -1,0 +1,2 @@
+﻿  mainbase.cpp
+c:\users\valdr\documents\lab_computacion_grafica\practica_01\practica_01\mainbase.cpp(4): fatal error C1083: No se puede abrir el archivo incluir: 'glew.h': No such file or directory
