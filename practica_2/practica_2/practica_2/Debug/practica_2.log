@@ -1,0 +1,6 @@
+﻿  mainbase.cpp
+mainbase.obj : error LNK2019: símbolo externo __imp__glClear@4 sin resolver al que se hace referencia en la función _main
+mainbase.obj : error LNK2019: símbolo externo __imp__glClearColor@16 sin resolver al que se hace referencia en la función _main
+mainbase.obj : error LNK2019: símbolo externo __imp__glDrawArrays@12 sin resolver al que se hace referencia en la función _main
+mainbase.obj : error LNK2019: símbolo externo __imp__glViewport@16 sin resolver al que se hace referencia en la función _main
+C:\Users\Valdr\source\repos\practica_2\Debug\practica_2.exe : fatal error LNK1120: 4 externos sin resolver
