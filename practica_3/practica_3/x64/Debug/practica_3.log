@@ -1,0 +1,4 @@
+﻿  mainbase.cpp
+c:\users\valdr\source\repos\practica_3\practica_3\window.h(12): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
+c:\users\valdr\source\repos\practica_3\practica_3\window.h(13): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
+  practica_3.vcxproj -> C:\Users\Valdr\source\repos\practica_3\x64\Debug\practica_3.exe
