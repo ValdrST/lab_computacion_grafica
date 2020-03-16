@@ -8,7 +8,7 @@ uniform mat4 view;
 uniform vec3 color;
 void main()
 {
-	gl_Position=view*projection*model*vec4(pos,1.0f);
+	gl_Position = view * projection * model * vec4(pos,1.0f);
 	vColor=vec4(color,1.0f);
 	//vColor=vec4(clamp(pos,0.0f,1.0f),1.0f);
 }
