@@ -1,6 +1,5 @@
 #include "PointLight.h"
-
-
+#include <stdio.h>
 
 PointLight::PointLight() : Light()
 {
@@ -21,6 +20,13 @@ PointLight::PointLight(GLfloat red, GLfloat green, GLfloat blue,
 	exponent = exp;
 }
 
+void PointLight::SetPosition(GLfloat xPos, GLfloat yPos, GLfloat zPos){
+	position.x += xPos;
+	position.y += yPos;
+	position.z += zPos;
+}
+
+
 void PointLight::UseLight(GLfloat ambientIntensityLocation, GLfloat ambientcolorLocation, 
 							GLfloat diffuseIntensityLocation, GLfloat positionLocation, 
 							GLfloat constantLocation, GLfloat linearLocation, GLfloat exponentLocation)
@@ -28,7 +34,7 @@ void PointLight::UseLight(GLfloat ambientIntensityLocation, GLfloat ambientcolor
 	glUniform3f(ambientcolorLocation, color.x, color.y, color.z);
 	glUniform1f(ambientIntensityLocation, ambientIntensity);
 	glUniform1f(diffuseIntensityLocation, diffuseIntensity);
-
+	printf("%f\n",position.x);
 	glUniform3f(positionLocation, position.x, position.y, position.z);
 	glUniform1f(constantLocation, constant);
 	glUniform1f(linearLocation, linear);

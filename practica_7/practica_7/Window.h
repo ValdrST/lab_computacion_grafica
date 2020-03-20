@@ -11,6 +11,36 @@ public:
 	int Initialise();
 	GLfloat getBufferWidth() { return bufferWidth; }
 	GLfloat getBufferHeight() { return bufferHeight; }
+	GLfloat getmueveLight1x(){ 
+		GLfloat theChange = mueveLight1x; 
+		mueveLight1x = 0.0f;
+		return theChange;
+	}
+	GLfloat getmueveLight1y(){ 
+		GLfloat theChange = mueveLight1y; 
+		mueveLight1y = 0.0f;
+		return theChange;
+	}
+	GLfloat getmueveLight1z(){ 
+		GLfloat theChange = mueveLight1z; 
+		mueveLight1z = 0.0f;
+		return theChange;
+	}
+	GLfloat getmueveLight2x(){ 
+		GLfloat theChange = mueveLight2x; 
+		mueveLight2x = 0.0f;
+		return theChange;
+	}
+	GLfloat getmueveLight2y(){ 
+		GLfloat theChange = mueveLight2y; 
+		mueveLight2y = 0.0f;
+		return theChange;
+	}
+	GLfloat getmueveLight2z(){ 
+		GLfloat theChange = mueveLight2z; 
+		mueveLight2z = 0.0f;
+		return theChange;
+	}
 	GLfloat getXChange();
 	GLfloat getYChange();
 	GLfloat getmuevex() { return muevex; }
@@ -31,6 +61,12 @@ private:
 	GLfloat xChange;
 	GLfloat yChange;
 	GLfloat muevex;
+	GLfloat mueveLight1x=0.0f;
+	GLfloat mueveLight1y=0.0f;
+	GLfloat mueveLight1z=0.0f;
+	GLfloat mueveLight2x=0.0f;
+	GLfloat mueveLight2y=0.0f;
+	GLfloat mueveLight2z=0.0f;
 	bool mouseFirstMoved;
 	static void ManejaTeclado(GLFWwindow* window, int key, int code, int action, int mode);
 	static void ManejaMouse(GLFWwindow* window, double xPos, double yPos);

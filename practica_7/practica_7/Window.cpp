@@ -94,9 +94,6 @@ GLfloat Window::getYChange()
 	return theChange;
 }
 
-
-
-
 void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, int mode)
 {
 	Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
@@ -107,15 +104,62 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	}
 	if (key == GLFW_KEY_Y)
 	{
-		theWindow-> muevex += 1.0;
+		theWindow-> muevex -= 0.10;
 	}
 	if (key == GLFW_KEY_U)
 	{
-		theWindow-> muevex -= 1.0;
+		theWindow-> muevex += 0.10;
 	}
 
-
-
+	if (key == GLFW_KEY_E)
+	{
+		theWindow-> mueveLight1x -= 1.0;
+	}
+	if (key == GLFW_KEY_R)
+	{
+		theWindow-> mueveLight1x += 1.0;
+	}
+	if (key == GLFW_KEY_F)
+	{
+		theWindow-> mueveLight1y -= 1.0;
+	}
+	if (key == GLFW_KEY_G)
+	{
+		theWindow-> mueveLight1y += 1.0;
+	}
+	if (key == GLFW_KEY_KP_1)
+	{
+		theWindow-> mueveLight1z -= 1.0;
+	}
+	if (key == GLFW_KEY_KP_2)
+	{
+		theWindow-> mueveLight1z += 1.0;
+	}
+	if (key == GLFW_KEY_C)
+	{
+		theWindow-> mueveLight2x -= 1.0;
+	}
+	if (key == GLFW_KEY_V)
+	{
+		theWindow-> mueveLight2x += 1.0;
+	}
+	if (key == GLFW_KEY_B)
+	{
+		theWindow-> mueveLight2y -= 1.0;
+	}
+	if (key == GLFW_KEY_N)
+	{
+		theWindow-> mueveLight2y += 1.0;
+	}
+	if (key == GLFW_KEY_KP_3)
+	{
+		theWindow-> mueveLight2z -= 1.0;
+	}
+	if (key == GLFW_KEY_KP_4)
+	{
+		theWindow-> mueveLight2z += 1.0;
+	}
+	
 	if (key >= 0 && key < 1024)
 	{
 		if (action == GLFW_PRESS)

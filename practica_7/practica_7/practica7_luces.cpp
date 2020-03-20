@@ -51,10 +51,10 @@ GLfloat deltaTime = 0.0f;
 GLfloat lastTime = 0.0f;
 
 // Vertex Shader
-static const char* vShader = "Shaders/shader_light.vert";
+static const char* vShader = "shaders/shader_light.vert";
 
 // Fragment Shader
-static const char* fShader = "Shaders/shader_light.frag";
+static const char* fShader = "shaders/shader_light.frag";
 //c�lculo del promedio de las normales para sombreado de Phong
 void calcAverageNormals(unsigned int * indices, unsigned int indiceCount, GLfloat * vertices, unsigned int verticeCount, 
 						unsigned int vLength, unsigned int normalOffset)
@@ -107,10 +107,10 @@ void CreateObjects()
 	};
 
 	GLfloat floorVertices[] = {
-		-10.0f, 0.0f, -10.0f,	0.0f, 0.0f,		0.0f, -1.0f, 0.0f,
-		10.0f, 0.0f, -10.0f,	10.0f, 0.0f,	0.0f, -1.0f, 0.0f,
-		-10.0f, 0.0f, 10.0f,	0.0f, 10.0f,	0.0f, -1.0f, 0.0f,
-		10.0f, 0.0f, 10.0f,		10.0f, 10.0f,	0.0f, -1.0f, 0.0f
+		-1.0f, 0.0f, -1.0f,	0.0f, 0.0f,		0.0f, -1.0f, 0.0f,
+		1.0f, 0.0f, -1.0f,	1.0f, 0.0f,	0.0f, -1.0f, 0.0f,
+		-1.0f, 0.0f, 1.0f,	0.0f, 1.0f,	0.0f, -1.0f, 0.0f,
+		1.0f, 0.0f, 1.0f,		1.0f, 1.0f,	0.0f, -1.0f, 0.0f
 	};
 
 	calcAverageNormals(indices, 12, vertices, 32, 8, 5);
@@ -193,9 +193,10 @@ void CrearCubo()
 		 -0.5f, 0.5f,  -0.5f,	0.25f,	1.0f,		0.0f,	1.0f,	0.0f,
 
 	};
-	//calcAverageNormals(cubo_indices, 36, cubo_vertices, 192, 8, 5);
+	int tamano_vertices = sizeof(cubo_vertices)/sizeof(cubo_vertices[0]);
+	//calcAverageNormals(cubo_indices, 36, cubo_vertices, tamano_vertices, 8, 5);
 	Mesh *cubo = new Mesh();
-	cubo->CreateMesh(cubo_vertices, cubo_indices, 192, 36);
+	cubo->CreateMesh(cubo_vertices, cubo_indices, tamano_vertices, 36);
 	meshList.push_back(cubo);
 
 }
@@ -239,7 +240,13 @@ int main()
 	pointLights[0] = PointLight(0.0f, 0.0f, 1.0f,
 								0.0f, 1.0f,
 								3.0f, 0.0f, 0.0f,
-								0.3f, 0.2f, 0.1f);
+								0.3f, 0.2f, 0.1f);							
+	pointLightCount++;
+
+		pointLights[1] = PointLight(1.0f, 0.33f, 0.0f,
+								0.0f, 1.0f,
+								-3.0f, 0.0f, 0.0f,
+								0.3f, 0.2f, 0.1f);	
 	pointLightCount++;
 	//Ejercicio 2: agregar otra luz puntual
 
@@ -269,7 +276,9 @@ int main()
 		// Clear the window
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+		
+		pointLights[0].SetPosition(mainWindow.getmueveLight1x(),mainWindow.getmueveLight1y(),mainWindow.getmueveLight1z());
+		pointLights[1].SetPosition(mainWindow.getmueveLight2x(),mainWindow.getmueveLight2y(),mainWindow.getmueveLight2z());
 		shaderList[0].UseShader();
 		uniformModel = shaderList[0].GetModelLocation();
 		uniformProjection = shaderList[0].GetProjectionLocation();
@@ -277,7 +286,6 @@ int main()
 		uniformEyePosition = shaderList[0].GetEyePositionLocation();
 		uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
 		uniformShininess = shaderList[0].GetShininessLocation();
-
 		shaderList[0].SetDirectionalLight(&mainLight);
 		shaderList[0].SetPointLights(pointLights, pointLightCount);
 
@@ -304,7 +312,7 @@ int main()
 
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
-		//model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
+		model = glm::scale(model, glm::vec3(10.0f, 1.0f, 10.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		plainTexture.UseTexture();
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
@@ -313,6 +321,7 @@ int main()
 		//instanciar su dado
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(mainWindow.getmuevex(), 0.0f, -1.0f));
+		model = glm::rotate(model, glm::radians(-90.0f),glm::vec3(0.0f,0.0f,1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		dadoTexture.UseTexture();
