@@ -40,6 +40,7 @@ Texture dirtTexture;
 Texture plainTexture;
 Texture dadoTexture;
 Texture dado10Texture;
+Texture skyTexture;
 //materiales
 Material Material_brillante;
 Material Material_opaco;
@@ -101,21 +102,26 @@ void CreateObjects()
 		1.0f, -1.0f, -0.6f,		1.0f, 0.0f,		0.0f, 0.0f, 0.0f,
 		0.0f, 1.0f, 0.0f,		0.5f, 1.0f,		0.0f, 0.0f, 0.0f
 	};
-
+	int tamano_vertices = sizeof(vertices)/sizeof(vertices[0]);
+	int tamano_indices = sizeof(indices)/sizeof(indices[0]);
+	calcAverageNormals(indices, tamano_indices, vertices, tamano_vertices, 8, 5);
 	unsigned int floorIndices[] = {
 		0, 2, 1,
 		1, 2, 3
 	};
 
 	GLfloat floorVertices[] = {
-		-1.0f, 0.0f, -1.0f,	0.0f, 0.0f,		0.0f, -1.0f, 0.0f,
-		1.0f, 0.0f, -1.0f,	1.0f, 0.0f,	0.0f, -1.0f, 0.0f,
-		-1.0f, 0.0f, 1.0f,	0.0f, 1.0f,	0.0f, -1.0f, 0.0f,
-		1.0f, 0.0f, 1.0f,		1.0f, 1.0f,	0.0f, -1.0f, 0.0f
+		-1.0f, 0.0f, -1.0f,	0.0f, 0.0f,		0.0f, 0.0f, 0.0f,
+		1.0f, 0.0f, -1.0f,	1.0f, 0.0f,	0.0f, 0.0f, 0.0f,
+		-1.0f, 0.0f, 1.0f,	0.0f, 1.0f,	0.0f, 0.0f, 0.0f,
+		1.0f, 0.0f, 1.0f,		1.0f, 1.0f,	0.0f, 0.0f, 0.0f
 	};
-
-	calcAverageNormals(indices, 12, vertices, 32, 8, 5);
-
+	calcAverageNormals(floorIndices, 6, floorVertices, 32, 8, 5);
+	/*int z = 8;
+	for(int x=0;x<4;x++){
+		printf("%f, %f, %f\n",floorVertices[x*z + 5],floorVertices[x*z +6],floorVertices[x*z + 7]);
+		printf("|%d %d %d|\n",(x*z) + 5,(x*z) + 6,(x*z) + 7);
+	}*/
 	Mesh *obj1 = new Mesh();
 	obj1->CreateMesh(vertices, indices, 32, 12);
 	meshList.push_back(obj1);
@@ -156,46 +162,51 @@ void CrearCubo()
 	GLfloat cubo_vertices[] = {
 		// front
 		//x		y		z		S		T			NX		NY		NZ
-		-0.5f, -0.5f,  0.5f,	0.25f,  0.33f,		0.0f,	0.0f,	0.0f,
-		0.5f, -0.5f,  0.5f,		0.5f,	0.33f,		0.0f,	0.0f,	0.0f,
-		0.5f,  0.5f,  0.5f,		0.5f,	0.66f,		0.0f,	0.0f,	0.0f,
-		-0.5f,  0.5f,  0.5f,	0.25f,	0.66f,		0.0f,	0.0f,	0.0f,
+		-0.5f, -0.5f,  0.5f,	1.0f,  	0.0f,		0.0f,	0.0f,	0.0f,
+		0.5f, -0.5f,  0.5f,		0.0f,	0.0f,		0.0f,	0.0f,	0.0f,
+		0.5f,  0.5f,  0.5f,		0.0f,	1.0f,		0.0f,	0.0f,	0.0f,
+		-0.5f,  0.5f,  0.5f,	1.0f,	1.0f,		0.0f,	0.0f,	0.0f,
 		// right
 		//x		y		z		S		T
-		0.5f, -0.5f,  0.5f,	    0.5f,  0.33f,		0.0f,	0.0f,	0.0f,
-		0.5f, -0.5f,  -0.5f,	0.75f,	0.33f,		0.0f,	0.0f,	0.0f,
-		0.5f,  0.5f,  -0.5f,	0.75f,	0.66f,		0.0f,	0.0f,	0.0f,
-		0.5f,  0.5f,  0.5f,	    0.5f,	0.66f,		0.0f,	0.0f,	0.0f,
+		0.5f, -0.5f,  0.5f,	    1.0f,  	0.0f,		0.0f,	0.0f,	0.0f,
+		0.5f, -0.5f,  -0.5f,	0.0f,	0.0f,		0.0f,	0.0f,	0.0f,
+		0.5f,  0.5f,  -0.5f,	0.0f,	1.0f,		0.0f,	0.0f,	0.0f,
+		0.5f,  0.5f,  0.5f,	    1.0f,	1.0f,		0.0f,	0.0f,	0.0f,
 		// back
-		-0.5f, -0.5f, -0.5f,	1.0f,	0.33f,		0.0f,	0.0f,	0.0f,
-		0.5f, -0.5f, -0.5f,		0.75f,	0.33f,		0.0f,	0.0f,	0.0f,
-		0.5f,  0.5f, -0.5f,		0.75f,	0.66f,		0.0f,	0.0f,	0.0f,
-		-0.5f,  0.5f, -0.5f,	1.0f,	0.66f,		0.0f,	0.0f,	0.0f,
+		-0.5f, -0.5f, -0.5f,	1.0f,  	0.0f,		0.0f,	0.0f,	0.0f,
+		0.5f, -0.5f, -0.5f,		0.0f,	0.0f,		0.0f,	0.0f,	0.0f,
+		0.5f,  0.5f, -0.5f,		0.0f,	1.0f,		0.0f,	0.0f,	0.0f,
+		-0.5f,  0.5f, -0.5f,	1.0f,	1.0f,		0.0f,	0.0f,	0.0f,
 
 		// left
 		//x		y		z		S		T
-		-0.5f, -0.5f,  -0.5f,	0.0f,	0.33f,		0.0f,	0.0f,	0.0f,
-		-0.5f, -0.5f,  0.5f,	0.25f,  0.33f,		0.0f,	0.0f,	0.0f,
-		-0.5f,  0.5f,  0.5f,	0.25f,	0.66f,		0.0f,	0.0f,	0.0f,
-		-0.5f,  0.5f,  -0.5f,	0.0f,	0.66f,		0.0f,	0.0f,	0.0f,
+		-0.5f, -0.5f,  -0.5f,	1.0f,  	0.0f,		0.0f,	0.0f,	0.0f,
+		-0.5f, -0.5f,  0.5f,	0.0f,	0.0f,		0.0f,	0.0f,	0.0f,
+		-0.5f,  0.5f,  0.5f,	0.0f,	1.0f,		0.0f,	0.0f,	0.0f,
+		-0.5f,  0.5f,  -0.5f,	1.0f,	1.0f,		0.0f,	0.0f,	0.0f,
 
 		// bottom
 		//x		y		z		S		T
-		-0.5f, -0.5f,  0.5f,	0.25f,	0.0f,		0.0f,	0.0f,	0.0f,//y negativo
-		0.5f,  -0.5f,  0.5f,	0.5f,  0.0f,		0.0f,	0.0f,	0.0f,
-		 0.5f,  -0.5f,  -0.5f,	0.5f,	0.33f,		0.0f,	0.0f,	0.0f,
-		-0.5f, -0.5f,  -0.5f,	0.25f,	0.33f,		0.0f,	0.0f,	0.0f,
+		-0.5f, -0.5f,  0.5f,	1.0f,  	0.0f,		0.0f,	0.0f,	0.0f,//y negativo
+		0.5f,  -0.5f,  0.5f,	0.0f,	0.0f,		0.0f,	0.0f,	0.0f,
+		 0.5f,  -0.5f,  -0.5f,	0.0f,	1.0f,		0.0f,	0.0f,	0.0f,
+		-0.5f, -0.5f,  -0.5f,	1.0f,	1.0f,		0.0f,	0.0f,	0.0f,
 
 		//UP
 		 //x		y		z		S		T
-		 -0.5f, 0.5f,  0.5f,	0.25f,	0.66f,		0.0f,	0.0f,	0.0f, //y positivo
-		 0.5f,  0.5f,  0.5f,	0.5f,  0.66f,		0.0f,	0.0f,	0.0f,
-		  0.5f, 0.5f,  -0.5f,	0.5f,	1.0f,		0.0f,	0.0f,	0.0f,
-		 -0.5f, 0.5f,  -0.5f,	0.25f,	1.0f,		0.0f,	0.0f,	0.0f,
+		 -0.5f, 0.5f,  0.5f,	1.0f,  	0.0f,		0.0f,	0.0f,	0.0f, //y positivo
+		 0.5f,  0.5f,  0.5f,	0.0f,	0.0f,		0.0f,	0.0f,	0.0f,
+		  0.5f, 0.5f,  -0.5f,	0.0f,	1.0f,		0.0f,	0.0f,	0.0f,
+		 -0.5f, 0.5f,  -0.5f,	1.0f,	1.0f,		0.0f,	0.0f,	0.0f,
 
 	};
 	int tamano_vertices = sizeof(cubo_vertices)/sizeof(cubo_vertices[0]);
 	calcAverageNormals(cubo_indices, 36, cubo_vertices, tamano_vertices, 8, 5);
+	/*int z = 8;
+	for(int x=0;x<24;x++){
+		printf("%f, %f, %f\n",cubo_vertices[x*z + 5],cubo_vertices[x*z +6],cubo_vertices[x*z + 7]);
+		printf("|%d %d %d|\n",(x*z) + 5,(x*z) + 6,(x*z) + 7);
+	}*/
 	Mesh *cubo = new Mesh();
 	cubo->CreateMesh(cubo_vertices, cubo_indices, tamano_vertices, 36);
 	meshList.push_back(cubo);
@@ -295,6 +306,9 @@ int main()
 	dadoTexture.LoadTexture();
 	dado10Texture = Texture("Textures/dado_10.tga");
 	dado10Texture.LoadTexture();
+	
+	skyTexture = Texture("Textures/sky.tga");
+	skyTexture.LoadTexture();
 
 	Material_brillante = Material(4.0f, 256);
 	Material_opaco = Material(0.3f, 4);
@@ -314,7 +328,7 @@ int main()
 		pointLights[1] = PointLight(1.0f, 0.33f, 0.0f,
 								0.0f, 1.0f,
 								-3.0f, 0.0f, 0.0f,
-								0.3f, 0.2f, 0.1f);	
+								0.3f, 0.4f, 0.1f);	
 	pointLightCount++;
 	//Ejercicio 2: agregar otra luz puntual
 
@@ -326,7 +340,7 @@ int main()
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
 		uniformSpecularIntensity = 0, uniformShininess = 0;
-	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 100.0f);
+	glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 200.0f);
 	
 	//Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())
@@ -385,19 +399,20 @@ int main()
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		meshList[2]->RenderMesh();
 		
-		/*//instanciar su dado
+		//instanciar su dado
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(mainWindow.getmuevex(), 0.0f, 2.0f));
+		model = glm::scale(model, glm::vec3(200.0f,200.0f, 200.0f));
 		//model = glm::rotate(model, glm::radians(-90.0f),glm::vec3(0.0f,0.0f,1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
-		dadoTexture.UseTexture();
-		meshList[3]->RenderMesh();*/
+		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		skyTexture.UseTexture();
+		meshList[3]->RenderMesh();
 
 		//instanciar su dado de 10 caras
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(mainWindow.getmuevex(), 0.0f, -1.0f));
-		model = glm::rotate(model, glm::radians(-90.0f),glm::vec3(1.0f,0.0f,0.0f));
+		model = glm::rotate(model, glm::radians(0.0f),glm::vec3(1.0f,0.0f,0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		dado10Texture.UseTexture();

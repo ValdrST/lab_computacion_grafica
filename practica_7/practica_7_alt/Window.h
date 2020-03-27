@@ -61,6 +61,7 @@ private:
 	GLfloat xChange;
 	GLfloat yChange;
 	GLfloat muevex;
+	GLfloat velMov;
 	GLfloat mueveLight1x=0.0f;
 	GLfloat mueveLight1y=0.0f;
 	GLfloat mueveLight1z=0.0f;

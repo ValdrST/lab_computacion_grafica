@@ -14,6 +14,7 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 	width = windowWidth;
 	height = windowHeight;
 	muevex = 2.0f;
+	velMov = 0.1f;
 	for (size_t i = 0; i < 1024; i++)
 	{
 		keys[i] = 0;
@@ -113,51 +114,51 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 
 	if (key == GLFW_KEY_K)
 	{
-		theWindow-> mueveLight1x -= 1.0;
+		theWindow-> mueveLight1x -= theWindow->velMov;
 	}
 	if (key == GLFW_KEY_SEMICOLON)
 	{
-		theWindow-> mueveLight1x += 1.0;
+		theWindow-> mueveLight1x += theWindow->velMov;
 	}
 	if (key == GLFW_KEY_I)
 	{
-		theWindow-> mueveLight1y -= 1.0;
+		theWindow-> mueveLight1y -= theWindow->velMov;
 	}
 	if (key == GLFW_KEY_P)
 	{
-		theWindow-> mueveLight1y += 1.0;
+		theWindow-> mueveLight1y += theWindow->velMov;
 	}
 	if (key == GLFW_KEY_L)
 	{
-		theWindow-> mueveLight1z -= 1.0;
+		theWindow-> mueveLight1z -= theWindow->velMov;
 	}
 	if (key == GLFW_KEY_O)
 	{
-		theWindow-> mueveLight1z += 1.0;
+		theWindow-> mueveLight1z += theWindow->velMov;
 	}
 	if (key == GLFW_KEY_G)
 	{
-		theWindow-> mueveLight2x -= 1.0;
+		theWindow-> mueveLight2x -= theWindow->velMov;
 	}
 	if (key == GLFW_KEY_J)
 	{
-		theWindow-> mueveLight2x += 1.0;
+		theWindow-> mueveLight2x += theWindow->velMov;
 	}
 	if (key == GLFW_KEY_T)
 	{
-		theWindow-> mueveLight2y -= 1.0;
+		theWindow-> mueveLight2y -= theWindow->velMov;
 	}
 	if (key == GLFW_KEY_U)
 	{
-		theWindow-> mueveLight2y += 1.0;
+		theWindow-> mueveLight2y += theWindow->velMov;
 	}
 	if (key == GLFW_KEY_H)
 	{
-		theWindow-> mueveLight2z -= 1.0;
+		theWindow-> mueveLight2z -= theWindow->velMov;
 	}
 	if (key == GLFW_KEY_Y)
 	{
-		theWindow-> mueveLight2z += 1.0;
+		theWindow-> mueveLight2z += theWindow->velMov;
 	}
 	
 	if (key >= 0 && key < 1024)
